@@ -8,16 +8,14 @@ import static spark.Spark.*;
 public class ScrabbleApp {
     public static void main(String[] args) {
         staticFileLocation("/public"); //for future use
-
-        get("/scrabble", (request, response) -> {
+        get("/", (request, response) -> {
             HashMap <String, Integer> model = new HashMap<>();
-
             return new ModelAndView(model, "templates/scrabbleinput.vtl");
         }, new VelocityTemplateEngine());
 
         get("/scrabbleoutput", (request, response) -> {
             HashMap model = new HashMap();
-            String userInput = request.queryParams("userInput");
+            String userInput = request.queryParams("userInput").toUpperCase();
             model.put("userInput", userInput);
 
             HashMap <String, Integer> scores = new HashMap<>();
@@ -40,7 +38,7 @@ public class ScrabbleApp {
             scores.put("C", 3);
             scores.put("M", 3);
             scores.put("P", 3);
-          
+
           	scores.put("F", 4);
           	scores.put("H", 4);
           	scores.put("V", 4);
@@ -54,10 +52,9 @@ public class ScrabbleApp {
 
 			      scores.put("Q", 10);
 			      scores.put("Z", 10);
-            
+
        		  Integer letterValue = scores.get(userInput);
-
-
+            System.out.println(letterValue);
             model.put("letterValue", letterValue);
 
             //this works perfectly except it won't output the correct number when the variable is used.
