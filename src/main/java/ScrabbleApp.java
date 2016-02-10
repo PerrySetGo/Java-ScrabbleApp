@@ -25,9 +25,10 @@ public class ScrabbleApp {
     }, new VelocityTemplateEngine());
   }
 
-    public static Integer getScrabbleScore (String userInput) {
+    public static int getScrabbleScore (String userInput) {
       char[] letterArray = userInput.toCharArray();
       HashMap <Character, Integer> scores = new HashMap<>();
+      int scoreKeeper = 0;
 
       scores.put('A', 1);
       scores.put('E', 1);
@@ -62,12 +63,12 @@ public class ScrabbleApp {
       scores.put('Q', 10);
       scores.put('Z', 10);
 
-      Integer scoreKeeper = 0;
+      int letterValue = 0;
 
       for (char letter : letterArray){
-      Integer letterValue = scores.get(letter);
-      scoreKeeper += letterValue;
+      letterValue = scores.get(letter);
+      scoreKeeper = scoreKeeper + letterValue;
       }
-      return scoreKeeper; 
+      return scoreKeeper;
     }
   }
