@@ -15,7 +15,7 @@ public class ScrabbleApp {
 
     get("/scrabbleoutput", (request, response) -> {
     HashMap model = new HashMap();
-    String userInput = request.queryParams("userInput").toUpperCase();
+    String userInput = request.queryParams("userInput");
 
     model.put("userInput", userInput);
     Integer scoreKeeper = getScrabbleScore(userInput);
@@ -26,9 +26,9 @@ public class ScrabbleApp {
   }
 
     public static int getScrabbleScore (String userInput) {
-      char[] letterArray = userInput.toCharArray();
-      HashMap <Character, Integer> scores = new HashMap<>();
-      int scoreKeeper = 0;
+      char[] letterArray = userInput.toUpperCase().toCharArray();
+      HashMap <Character, Integer> scores = new HashMap<Character, Integer>();
+      int scoreKeeper=0;
 
       scores.put('A', 1);
       scores.put('E', 1);
@@ -63,11 +63,8 @@ public class ScrabbleApp {
       scores.put('Q', 10);
       scores.put('Z', 10);
 
-      int letterValue = 0;
-
       for (char letter : letterArray){
-      letterValue = scores.get(letter);
-      scoreKeeper = scoreKeeper + letterValue;
+      scoreKeeper += scores.get(letter);
       }
       return scoreKeeper;
     }
